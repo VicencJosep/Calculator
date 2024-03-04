@@ -11,9 +11,10 @@ public class MainActivity extends AppCompatActivity {
 
     String variable = "";
     double [] num = new double[2];
-    char operador ='x';
+
     int k =0;
     int f=0;
+    int t=0;
 
     TextView textView2;
     @Override
@@ -115,6 +116,15 @@ public class MainActivity extends AppCompatActivity {
         textView2.setText(variable);
         op_auto();
     }
+    public void btnradClick(View v)
+    {
+        t++;
+        if(t%2==0)
+        Toast.makeText(this, "Changed to rad", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this, "Changed to degrees", Toast.LENGTH_SHORT).show();
+
+    }
     public void btnsinClick(View v){
         textView2.setText("sin(");
         k=5;
@@ -162,12 +172,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void btnEqualClick (View v){
+
+
         operacion();
         textView2.setText(String.valueOf(num[1]));
         num[0]=0;
         num[1]=0;
         variable = "";
-
     }
     public void operacion ()
     {
@@ -179,12 +190,19 @@ public class MainActivity extends AppCompatActivity {
         { num[1] = num[0] + (Double.parseDouble(variable));}
         if(k==4)
         { num[1] = num[0]/(Double.parseDouble(variable));}
-        if (k==5)
-        {Math.sin(Math.toRadians(Double.parseDouble(variable)));}
-        if(k==6)
-        {Math.tan(Math.toRadians(Double.parseDouble(variable)));}
-        if (k==7)
-        {Math.cos(Math.toRadians(Double.parseDouble(variable)));}
+        if ((k==5)&&(t%2==0))
+        {num[1]=Math.sin(Math.toRadians(Double.parseDouble(variable)));}
+        if ((k==5)&&(t%2!=0))
+            num[1]=Math.sin(Math.toDegrees(Double.parseDouble(variable)));
+        if((k==6)&&(t%2==0))
+        {num[1]=Math.tan(Math.toRadians(Double.parseDouble(variable)));}
+        if((k==6)&&(t%2!=0))
+            num[1]=Math.tan(Math.toDegrees(Double.parseDouble(variable)));
+
+        if ((k==7)&&(t%2==0))
+        {num[1]=Math.cos(Math.toRadians(Double.parseDouble(variable)));}
+        if ((k==7)&&(t%2!=0))
+            num[1]=Math.cos(Math.toDegrees(Double.parseDouble(variable)));
 
     }
     public void op_auto ()
